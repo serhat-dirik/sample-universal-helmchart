@@ -49,7 +49,7 @@ Here is the complete structure and content for a sample Helm chart. You can crea
 
 #### Project Structure
 ````
-universal-chart/ 
+sample-universal-helmchart/ 
 ├── app/
 │   ├── Dockerfile
 │   └── main.py
