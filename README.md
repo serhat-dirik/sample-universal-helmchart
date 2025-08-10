@@ -67,8 +67,6 @@ sample-universal-helmchart/
 └── README.md
 ````
 
-````
-
 #### File Contents
 
 **1. `app/main.py`**
