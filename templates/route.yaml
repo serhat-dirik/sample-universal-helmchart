@@ -1,0 +1,19 @@
+{{- if and.Values.route.enabled (include "universal-chart.isOpenShift".) }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "universal-chart.fullname". }}
+  labels:
+    {{- include "universal-chart.labels". | nindent 4 }}
+spec:
+  to:
+    kind: Service
+    name: {{ include "universal-chart.fullname". }}
+  port:
+    targetPort: http
+  # You can add more advanced route configurations here if needed,
+  # such as TLS termination, custom hostnames, etc.
+  # host: {{.Values.route.host | default (printf "%s-%s.%s" (include "universal-chart.fullname".).Release.Namespace.Values.cluster.domain) }}
+  # tls:
+  #   termination: edge
+{{- end }}

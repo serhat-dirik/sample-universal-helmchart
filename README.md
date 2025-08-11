@@ -3,7 +3,7 @@
 
 In the world of cloud-native development, Helm is the undisputed package manager for Kubernetes. It allows developers and operators to package, configure, and deploy applications onto any Kubernetes cluster. But "any" Kubernetes cluster is a broad term. While the Kubernetes API provides a standard, different distributions can have unique features and security postures.
 
-Nowhere is this more apparent than with Red Hat OpenShift. As a fully CNCF-certified Kubernetes distribution, OpenShift guarantees API compatibility but builds upon that foundation with a hardened, enterprise-grade security model that can initially challenge unprepared Helm charts.[1]
+Nowhere is this more apparent than with Red Hat OpenShift. As a fully CNCF-certified Kubernetes distribution, OpenShift guarantees API compatibility but builds upon that foundation with a hardened, enterprise-grade security model that can initially challenge unprepared Helm charts.
 
 This guide will walk you through the common challenges and best practices for creating a single, intelligent Helm chart that deploys flawlessly on both vanilla Kubernetes and Red Hat OpenShift. We'll provide a complete, production-ready example that you can publish to your own GitHub repository.
 
@@ -99,7 +99,7 @@ RUN useradd --uid 1001 --create-home appuser
 WORKDIR /app
 
 # Copy the application code
-COPY main.py.
+COPY main.py .
 
 # Switch to the non-root user
 USER 1001

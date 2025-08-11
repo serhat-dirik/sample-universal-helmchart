@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "universal-chart.fullname". }}
+  labels:
+    {{- include "universal-chart.labels". | nindent 4 }}
+spec:
+  replicas: {{.Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "universal-chart.selectorLabels". | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "universal-chart.selectorLabels". | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "universal-chart.serviceAccountName". }}
+      containers:
+        - name: {{.Chart.Name }}
+          image: "{{.Values.image.repository }}:{{.Values.image.tag | default.Chart.AppVersion }}"
+          imagePullPolicy: {{.Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          # As a best practice, you should define liveness and readiness probes.
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # As a best practice, you should define resource requests and limits.
+          # resources:
+          #   limits:
+          #     cpu: 100m
+          #     memory: 128Mi
+          #   requests:
+          #     cpu: 100m
+          #     memory: 128Mi

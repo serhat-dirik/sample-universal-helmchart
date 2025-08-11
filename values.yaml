@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  # IMPORTANT: Replace this with the path to your own image after building and pushing it.
+  # For example: 'quay.io/your-username/universal-app'
+  # When using the OpenShift internal build, this will be something like:
+  # image-registry.openshift-image-registry.svc:5000/universal-app-dev/universal-app
+  repository: python
+  pullPolicy: IfNotPresent
+  # The tag should match the version of your application image
+  tag: "3.9-slim"
+
+serviceAccount:
+  create: true
+  name: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+
+route:
+  enabled: true

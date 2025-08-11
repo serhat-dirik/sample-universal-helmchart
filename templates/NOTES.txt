@@ -1,0 +1,34 @@
+Your {{.Chart.Name }} chart has been successfully deployed.
+
+Your application is running and can be accessed via the following methods:
+
+{{- if include "universal-chart.isOpenShift". }}
+NOTE: Deployed on an OpenShift cluster.
+
+An OpenShift Route has been created to expose your service. You can get the URL by running:
+
+  export ROUTE_URL=$(oc get route {{ include "universal-chart.fullname". }} -n {{.Release.Namespace }} -o jsonpath='{.spec.host}')
+  echo "Access your application at: http://$ROUTE_URL"
+
+A Role and RoleBinding have also been created to grant the application's ServiceAccount
+permission to use the 'anyuid' Security Context Constraint. This allows the container
+to run with the user ID specified in its Dockerfile.
+{{- else }}
+NOTE: Deployed on a standard Kubernetes cluster.
+
+An Ingress resource has been created to expose your service. To get the address, run:
+
+  kubectl get ingress {{ include "universal-chart.fullname". }} --namespace {{.Release.Namespace }}
+
+It may take a few minutes for the Ingress controller to assign an external IP.
+{{- end }}
+
+To see the logs from your application and verify its UID, run the following commands:
+
+1. Get the pod name:
+   export POD_NAME=$(kubectl get pods --namespace {{.Release.Namespace }} -l "app.kubernetes.io/instance={{.Release.Name }}" -o jsonpath="{.items.metadata.name}")
+
+2. Tail the logs:
+   kubectl logs $POD_NAME --namespace {{.Release.Namespace }} --follow
+
+You should see messages indicating the application is running as UID 1001.
